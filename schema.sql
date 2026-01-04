@@ -1,0 +1,28 @@
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(255),
+  mobile VARCHAR(15),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE otp_requests (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  identifier VARCHAR(255),
+  otp_hash VARCHAR(255),
+  expires_at DATETIME,
+  attempts INT DEFAULT 0,
+  max_attempts INT DEFAULT 5,
+  resend_count INT DEFAULT 0,
+  status ENUM('PENDING','VERIFIED','BLOCKED') DEFAULT 'PENDING',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE audit_logs (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  trace_id VARCHAR(100),
+  api_name VARCHAR(100),
+  step VARCHAR(100),
+  status VARCHAR(20),
+  message TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
